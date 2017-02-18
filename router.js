@@ -3,8 +3,8 @@
  */
 const express = require('express'),
     router = express.Router(),
-    appController = require('./controllers/app.controller'),
-    artsController = require('./controllers/arts.controller');
+    appController = require('./controllers/app_controller.js'),
+    artsController = require('./controllers/arts_controller.js');
 
 module.exports = router;
 
