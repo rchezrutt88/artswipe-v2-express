@@ -16,3 +16,10 @@ router.get('/arts', artsController.showArts);
 // seed events
 
 router.get('/arts/seed', artsController.seedArts);
+
+router.get('/arts/create', artsController.showCreate);
+
+router.post('/arts/create', artsController.processCreate);
+
+router.get('/arts/:slug', artsController.showSingle);
+
