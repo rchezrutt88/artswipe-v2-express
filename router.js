@@ -8,6 +8,7 @@ const express = require('express'),
 
 module.exports = router;
 
+
 router.get('/', appController.showHome);
 
 // arts routes

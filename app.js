@@ -7,6 +7,7 @@ const express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose');
+    cors = require('cors');
 
 var router = require('./router');
 
@@ -41,8 +42,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// app.all('/*', function (req, res, next) {
+//     res.set({
+//         'Access-Control-Allow-Origin': ''
+//         // ,
+//         // 'Access-Control-Allow-Headers': "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With",
+//         // 'Access-Control-Allow-Methods': 'GET, PUT, POST'
+//     });
+//     next();
+// });
+
 /*Routes*/
-app.use('/', router);
+app.use(router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
