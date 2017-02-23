@@ -7,15 +7,15 @@ $(document).ready(function () {
         e.preventDefault();
         $.ajax({
             method: "POST",
-            url: "localhost:3000/arts/create",
+            url: "http://localhost:3000/arts/create",
             data: $("#create-art-form").serialize(),
             dataType: "json",
         })
-            .done(function () {
-                console.log('it worked!');
+            .done(function (data) {
+                console.log(data);
             })
-            .fail(function () {
-                console.log('it did not work!');
+            .fail(function (error) {
+                console.log(error);
             })
     }
 
