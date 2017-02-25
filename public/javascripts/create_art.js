@@ -25,7 +25,8 @@ $(document).ready(function () {
         }
         var file = files[0];
         var fileName = file.name;
-        var albumPhotosKey = encodeURIComponent(albumName) + '//';
+        debugger;
+        var albumPhotosKey = encodeURIComponent(albumName) + '/';
 
         var photoKey = albumPhotosKey + fileName;
         s3.upload({
