@@ -5,7 +5,8 @@ const express = require('express'),
     router = express.Router(),
     appController = require('./controllers/app_controller.js'),
     artsController = require('./controllers/arts_controller.js'),
-    userController = require('./controllers/user_controller');
+    userController = require('./controllers/user_controller'),
+    passport = require('passport');
 
 module.exports = router;
 
@@ -16,7 +17,11 @@ router.get('/', appController.showHome);
 
 router.get('/signup', userController.showSignup);
 
-router.post('/signup', userController.signup);
+router.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/profile',
+    failureRedirect: '/signup',
+    failureFlash: true
+}), userController.signup);
 
 router.get('/login', userController.login);
 

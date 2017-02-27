@@ -8,16 +8,12 @@ module.exports = {
 }
 
 function login(req, res) {
-    res.render('signin');
+    res.render('login');
 }
 
+// TODO how to clean this up and implement passport as true middleware?
 function signup(req, res) {
-    console.log('hits signup');
-    passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
-        failureFlash: true
-    })(req, res);
+    res.send('whatever');
 }
 
 function showSignup(req, res) {
