@@ -4,14 +4,27 @@
 const express = require('express'),
     router = express.Router(),
     appController = require('./controllers/app_controller.js'),
-    artsController = require('./controllers/arts_controller.js');
+    artsController = require('./controllers/arts_controller.js'),
+    userController = require('./controllers/user_controller');
 
 module.exports = router;
 
 
 router.get('/', appController.showHome);
 
-// arts routes
+/*User Routes*/
+
+router.get('/signup', userController.showSignup);
+
+router.post('/signup', userController.signup);
+
+router.get('/login', userController.login);
+
+router.get('/profile', userController.showProfile);
+
+
+/*Art Routes*/
+
 router.get('/arts', artsController.showArts);
 // router.get('/arts/:slug', artsController.showSingle);
 // seed events

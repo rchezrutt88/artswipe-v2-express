@@ -14,7 +14,9 @@ var router = require('./router');
 /*passport*/
 var session = require('express-session');
 var passport = require('passport');
+var flash = require('connect-flash');
 var localStrategy = require('passport-local');
+require('./config/passport')(passport);
 
 mongoose.connect(process.env.DB_URI);
 
@@ -39,8 +41,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /*Passport*/
+app.use(session({secret: 'juliet3927', resave: false, saveUninitialized: true }))
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+
 
 // app.all('/*', function (req, res, next) {
 //     res.set({
