@@ -17,13 +17,11 @@ router.get('/', appController.showHome);
 
 router.get('/signup', userController.showSignup);
 
-router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/profile',
-    failureRedirect: '/signup',
-    failureFlash: true
-}), userController.signup);
+router.post('/signup', userController.signup);
 
-router.get('/login', userController.login);
+router.get('/login', userController.showLogin);
+
+router.post('/login', userController.login);
 
 router.get('/profile', userController.showProfile);
 

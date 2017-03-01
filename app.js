@@ -20,13 +20,13 @@ require('./config/passport')(passport);
 
 mongoose.connect(process.env.DB_URI);
 
+var app = express();
+
 // require('./config/passport')(passport); // pass passport for configuration
 
 //We will be creating these two files shortly
 // var config = require('./config.js'), //config file contains all tokens and other private info
 //    funct = require('./functions.js'); //funct file contains our helper functions for our Passport and database work
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,11 +41,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /*Passport*/
+
 app.use(session({secret: 'juliet3927', resave: false, saveUninitialized: true }))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
 
 // app.all('/*', function (req, res, next) {
 //     res.set({
@@ -57,8 +57,8 @@ app.use(flash());
 //     next();
 // });
 
-/*Routes*/
 app.use(router);
+/*Routes*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
