@@ -12,11 +12,11 @@ const express = require('express'),
 var router = require('./router');
 
 /*passport*/
-var session = require('express-session');
-var passport = require('passport');
-var flash = require('connect-flash');
-var localStrategy = require('passport-local');
-require('./config/passport')(passport);
+// var session = require('express-session');
+// var passport = require('passport');
+// var flash = require('connect-flash');
+// var localStrategy = require('passport-local');
+// require('./config/passport')(passport);
 
 mongoose.connect(process.env.DB_URI);
 
@@ -29,6 +29,24 @@ var app = express();
 //    funct = require('./functions.js'); //funct file contains our helper functions for our Passport and database work
 
 // view engine setup
+
+/*stormpath*/
+var stormpath = require('express-stormpath');
+app.use(stormpath.init(app, {
+  website: true,
+  apiKey: {
+    id: '',
+    secret:'',
+    },
+  application: {
+    href: ''
+    }
+}));
+
+app.on('stormpath.ready', function () {
+    app.listen(3000);
+});
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -42,10 +60,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /*Passport*/
 
-app.use(session({secret: 'juliet3927', resave: false, saveUninitialized: true }))
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+// app.use(session({secret: 'juliet3927', resave: false, saveUninitialized: true }))
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(flash());
 
 // app.all('/*', function (req, res, next) {
 //     res.set({
