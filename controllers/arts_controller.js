@@ -4,8 +4,7 @@
 const Art = require('../models/art');
 const AWS = require('aws-sdk');
 const passport = require('passport');
-
-var s3 = new AWS.S3();
+require('dotenv').config();
 
 
 module.exports = {
@@ -13,7 +12,8 @@ module.exports = {
     seedArts: seedArts,
     showSingle: showSingle,
     showCreate: showCreate,
-    processCreate: processCreate
+    processCreate: processCreate,
+    getSignedUrl: getSignedUrl
 }
 
 
@@ -59,16 +59,44 @@ function showCreate(req, res) {
     res.render('create_art');
 }
 
-function processCreate(req, res) {
+function processCreate(req, res, next) {
     const art = new Art({
-        title: req.body.title
+        title: req.body.title,
+        artist: req.body.artist
     });
 
-    art.save((err) => {
+    art.save((err, art) => {
         if (err)
             throw err;
+        res.art = art;
+        next();
+    });
+}
 
-        res.redirect('/arts/${event.slug}');
+function getSignedUrl(req, res) {
+    const s3 = new AWS.S3();
+    const S3_BUCKET = process.env.BUCKET_NAME;
+    const fileName = req.query['file-name'];
+    const fileType = req.query['file-type'];
+    const s3Params = {
+        Bucket: S3_BUCKET,
+        Key: fileName,
+        Expires: 60,
+        ContentType: fileType,
+        ACL: 'public-read'
+    };
+
+    s3.getSignedUrl('putObject', s3Params, function (err, data) {
+        if(err) {
+            console.log(err);
+            return res.end();
+        }
+        const returnData = {
+            signedRequest:  data,
+            url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+        };
+        res.write(JSON.stringify(returnData));
+        res.end();
     });
 }
 
