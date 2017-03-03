@@ -9,11 +9,7 @@ module.exports = {
 }
 
 function login(req, res) {
-    passport.authenticate('local-login', {
-        successRedirect: '/profile',
-        failureRedirect: '/login',
-        failureFlash: true
-    })(req, res);
+    res.redirect('/profile');
 }
 
 function showLogin(req, res) {
@@ -22,11 +18,7 @@ function showLogin(req, res) {
 
 // TODO how to clean this up and implement passport as true middleware?
 function signup(req, res, next) {
-    passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
-        failureFlash: true
-    })(req, res, next);
+    res.redirect('/profile');
 }
 
 function showSignup(req, res) {

@@ -2,6 +2,11 @@
  * Created by rdrutt on 2/17/17.
  */
 const Art = require('../models/art');
+const AWS = require('aws-sdk');
+const passport = require('passport');
+
+var s3 = new AWS.S3();
+
 
 module.exports = {
     showArts: showArts,
@@ -20,9 +25,16 @@ module.exports = {
  */
 function showArts(req, res) {
     Art.find({}, (err, arts) => {
-        res.send(arts)
+        arts.forEach(function (art) {
+            art.url = S3urlHelper('artswipe', 'art-images', art.id);
+        })
+        res.render('arts', {arts: arts});
     });
 }
+
+// function getArtImages(req, res) {
+//     passport.authenticate('')
+// }
 
 /**
  * Show single art
@@ -79,4 +91,8 @@ function seedArts(req, res) {
 
     res.send('Database seeded!')
 
+}
+
+function S3urlHelper(bucketname, folder, objectId) {
+    return `https://s3.amazonaws.com/${bucketname}/${folder}/${objectId}.jpg`
 }

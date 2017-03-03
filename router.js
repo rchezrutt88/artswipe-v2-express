@@ -17,20 +17,19 @@ router.get('/', appController.showHome);
 
 router.get('/signup', userController.showSignup);
 
-router.post('/signup', userController.signup);
+router.post('/signup',
+    passport.authenticate('local-signup', {failureFlash: true, failureRedirect: '/signup'}),
+    userController.signup);
 
 router.get('/login', userController.showLogin);
 
-router.post('/login', userController.login);
+router.post('/login',
+    passport.authenticate('local-login', {failureFlash: true, failureRedirect: '/login'}),
+    userController.login);
 
 router.get('/profile', userController.showProfile);
 
-
-/*Art Routes*/
-
 router.get('/arts', artsController.showArts);
-// router.get('/arts/:slug', artsController.showSingle);
-// seed events
 
 router.get('/arts/seed', artsController.seedArts);
 

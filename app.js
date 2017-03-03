@@ -8,6 +8,7 @@ const express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose');
     cors = require('cors');
+    hbs = require('hbs');
 
 var router = require('./router');
 
@@ -28,6 +29,7 @@ var app = express();
 // var config = require('./config.js'), //config file contains all tokens and other private info
 //    funct = require('./functions.js'); //funct file contains our helper functions for our Passport and database work
 
+hbs.registerPartials(__dirname + '/views/partials');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
