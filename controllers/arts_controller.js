@@ -13,7 +13,7 @@ module.exports = {
     showSingle: showSingle,
     showCreate: showCreate,
     processCreate: processCreate,
-    getSignedUrl: getSignedUrl
+    getSignedRequest: getSignedRequest
 }
 
 
@@ -61,26 +61,30 @@ function showCreate(req, res) {
 
 function processCreate(req, res, next) {
     const art = new Art({
-        title: req.body.title,
-        artist: req.body.artist
+        title: req.query.title,
+        artist: req.query.artist
     });
 
     art.save((err, art) => {
         if (err)
             throw err;
-        res.art = art;
+        res.locals.art = art;
         next();
     });
 }
 
-function getSignedUrl(req, res) {
+function getSignedRequest(req, res) {
     const s3 = new AWS.S3();
+    AWS.config.update({accessKeyId: process.env.accessKeyId, secretAccessKey: process.env.secretAccessKey});
     const S3_BUCKET = process.env.BUCKET_NAME;
-    const fileName = req.query['file-name'];
-    const fileType = req.query['file-type'];
+
+    var re = /(?:\.([^.]+))?$/
+    const fileName = res.locals['art'].id + '.' + re.exec(req.query['file_name'])[1];
+    const fileType = req.query['file_type'];
+    const key = `${process.env.BUCKET_KEY}/${fileName}`;
     const s3Params = {
         Bucket: S3_BUCKET,
-        Key: fileName,
+        Key: key,
         Expires: 60,
         ContentType: fileType,
         ACL: 'public-read'
@@ -93,9 +97,9 @@ function getSignedUrl(req, res) {
         }
         const returnData = {
             signedRequest:  data,
-            url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+            url: `https://${S3_BUCKET}.s3.amazonaws.com/${key}`
         };
-        res.write(JSON.stringify(returnData));
+        res.json(returnData);
         res.end();
     });
 }

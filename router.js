@@ -35,7 +35,8 @@ router.get('/arts/seed', artsController.seedArts);
 
 router.get('/arts/create', artsController.showCreate);
 
-router.post('/arts/create', artsController.processCreate, artsController.getSignedUrl);
+router.get('/arts/create/get-signed-request', artsController.processCreate,
+    artsController.getSignedRequest);
 
 router.get('/arts/:slug', artsController.showSingle);
 
