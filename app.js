@@ -49,16 +49,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// app.all('/*', function (req, res, next) {
-//     res.set({
-//         'Access-Control-Allow-Origin': ''
-//         // ,
-//         // 'Access-Control-Allow-Headers': "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With",
-//         // 'Access-Control-Allow-Methods': 'GET, PUT, POST'
-//     });
-//     next();
-// });
-
 app.use(router);
 /*Routes*/
 

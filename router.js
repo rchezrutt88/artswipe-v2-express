@@ -11,6 +11,14 @@ const express = require('express'),
 module.exports = router;
 
 
+/**
+ * Checks for user on every call and ensures placement in template
+ */
+router.use(function (req, res, next) {
+    if (req.user) res.locals.user = req.user.local;
+    next();
+});
+
 router.get('/', appController.showHome);
 
 /*User Routes*/

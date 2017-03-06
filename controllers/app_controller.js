@@ -7,5 +7,5 @@ module.exports = {
 }
 
 function showHome(req, res) {
-    res.render('home', {user: req.user ? req.user.local : false});
+    res.render('home');
 }
