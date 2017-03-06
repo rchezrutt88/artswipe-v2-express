@@ -27,6 +27,8 @@ router.post('/login',
     passport.authenticate('local-login', {failureFlash: true, failureRedirect: '/login'}),
     userController.login);
 
+router.post('/logout', userController.logout);
+
 router.get('/profile', userController.showProfile);
 
 router.get('/arts', artsController.showArts);

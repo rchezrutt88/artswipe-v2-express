@@ -1,6 +1,7 @@
 var passport = require('passport');
 
 module.exports = {
+    logout: logout,
     signup: signup,
     login: login,
     showLogin: showLogin,
@@ -9,7 +10,12 @@ module.exports = {
 }
 
 function login(req, res) {
-    res.redirect('/profile');
+    res.redirect('/');
+}
+
+function logout(req, res) {
+    req.logout();
+    res.redirect('/');
 }
 
 function showLogin(req, res) {
