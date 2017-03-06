@@ -7,6 +7,7 @@ const passport = require('passport');
 require('dotenv').config();
 
 
+
 module.exports = {
     showArts: showArts,
     seedArts: seedArts,
@@ -74,12 +75,17 @@ function processCreate(req, res, next) {
 }
 
 function getSignedRequest(req, res) {
+    AWS.config.update({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: process.env.REGION
+    });
+
     const s3 = new AWS.S3();
-    AWS.config.update({accessKeyId: process.env.accessKeyId, secretAccessKey: process.env.secretAccessKey});
     const S3_BUCKET = process.env.BUCKET_NAME;
 
-    var re = /(?:\.([^.]+))?$/
-    const fileName = res.locals['art'].id + '.' + re.exec(req.query['file_name'])[1];
+    // var re = /(?:\.([^.]+))?$/
+    const fileName = req.query['file_name'];
     const fileType = req.query['file_type'];
     const key = `${process.env.BUCKET_KEY}/${fileName}`;
     const s3Params = {
@@ -97,7 +103,7 @@ function getSignedRequest(req, res) {
         }
         const returnData = {
             signedRequest:  data,
-            url: `https://${S3_BUCKET}.s3.amazonaws.com/${key}`
+            url: `https://${S3_BUCKET}.s3.amazonaws.com/${key}`,
         };
         res.json(returnData);
         res.end();

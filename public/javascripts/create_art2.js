@@ -16,9 +16,9 @@ $(document).ready(function () {
                 file_type: file.type
             }
         }).done(function (data) {
-            debugger;
+            // debugger;
             console.log(data);
-            uploadToS3(file, data.signedRequest, data.url);
+            uploadToS3(file, data.signedRequest);
         }).fail(function (err) {
             console.log(err);
         }).always(function (arg) {
@@ -34,8 +34,8 @@ $(document).ready(function () {
         getSignedRequest(file);
     }
 
-    function uploadToS3(file, signedRequest, url) {
-        debugger;
+    function uploadToS3(file, signedRequest) {
+        // debugger;
         $.ajax({
                 url: signedRequest,
                 method: 'PUT',
