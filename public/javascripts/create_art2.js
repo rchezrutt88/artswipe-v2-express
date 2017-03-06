@@ -39,7 +39,7 @@ $(document).ready(function () {
         $.ajax({
                 url: signedRequest,
                 method: 'PUT',
-                contentType: 'binary/octet-stream',
+                contentType: file.type,
                 processData: false,
                 data: file
             }
