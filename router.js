@@ -20,7 +20,6 @@ router.use(function (req, res, next) {
 });
 
 router.get('/', appController.showHome);
-
 /*User Routes*/
 
 router.get('/signup', userController.showSignup);

@@ -61,9 +61,11 @@ function showCreate(req, res) {
 }
 
 function processCreate(req, res, next) {
+    const S3_KEY = `art-images/${req.query['file_name']}`;
     const art = new Art({
         title: req.query.title,
-        artist: req.query.artist
+        artist: req.query.artist,
+        s3Key: S3_KEY
     });
 
     art.save((err, art) => {
@@ -87,7 +89,7 @@ function getSignedRequest(req, res) {
     // var re = /(?:\.([^.]+))?$/
     const fileName = req.query['file_name'];
     const fileType = req.query['file_type'];
-    const key = `${process.env.BUCKET_KEY}/${fileName}`;
+    const key = `art-images/${fileName}`;
     const s3Params = {
         Bucket: S3_BUCKET,
         Key: key,

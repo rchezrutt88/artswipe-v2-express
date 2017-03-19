@@ -16,6 +16,10 @@ const artSchema = new Schema({
     slug: {
         type: String,
         unique: true
+    },
+    s3Key: {
+        type: String,
+        unique: true
     }
 });
 
