@@ -1,0 +1,29 @@
+{
+  "arts": [
+    {
+      "title": "Girl With A Pearl Earing",
+      "artist": "Johannes Vermeer",
+      "file_name": "Girl_With_A_Pearl_Earring.jpg"
+      },
+    {
+      "title": "Portrait of Adele Bloch-Bauer I",
+      "artist": "Gustav Klimt",
+      "file_name": "Gustav_Klimt-Adele-Bloch-Bauer1-865x577.jpg"
+    },
+    {
+      "title": "Self-Portrait with Bonito",
+      "artist": "Frida Kahlo",
+      "file_name": "self-portrait-with-bonito-1941-xx-private-collection.jpg"
+    },
+    {
+      "title": "Portrait of the Journalist Sylvia von Harden",
+      "artist": "Otto Dix",
+      "file_name": "Sylvia-von-Harden-Otto-Dix-831x1024.jpg"
+    },
+    {
+      "title": "Van Gogh Self Portrait, 1889-1890",
+      "artist": "Vincent van Gogh",
+      "file_name": "van-Gogh-Self-Potrait_1889_1890.jpg"
+    }
+  ]
+}

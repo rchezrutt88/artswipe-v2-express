@@ -10,7 +10,6 @@ require('dotenv').config();
 
 module.exports = {
     showArts: showArts,
-    seedArts: seedArts,
     showSingle: showSingle,
     showCreate: showCreate,
     processCreate: processCreate,
@@ -27,7 +26,7 @@ module.exports = {
 function showArts(req, res) {
     Art.find({}, (err, arts) => {
         arts.forEach(function (art) {
-            art.url = S3urlHelper('artswipe', 'art-images', art.id);
+            art.url = `https://s3.amazonaws.com/${process.env.BUCKET_NAME}/${art.s3Key}`
         })
         res.render('arts', {arts: arts});
     });
@@ -112,29 +111,4 @@ function getSignedRequest(req, res) {
         res.json(returnData);
         res.end();
     });
-}
-
-
-function seedArts(req, res) {
-
-    const arts = [
-        {title: 'Mona Lisa', artist: 'Leonardo Da Vinci'},
-        {title: 'Girl with a Pearl Earing', artist: 'Johannes Vermeer'}
-    ];
-
-    Art.remove({}, () => {
-
-        for (art of arts) {
-            var newArt = new Art(art);
-            newArt.save();
-        }
-
-    });
-
-    res.send('Database seeded!')
-
-}
-
-function S3urlHelper(bucketname, folder, objectId) {
-    return `https://s3.amazonaws.com/${bucketname}/${folder}/${objectId}.jpg`
 }

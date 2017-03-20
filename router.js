@@ -41,8 +41,6 @@ router.get('/profile', userController.showProfile);
 
 router.get('/arts', artsController.showArts);
 
-router.get('/arts/seed', artsController.seedArts);
-
 router.get('/arts/create', artsController.showCreate);
 
 router.get('/arts/create/get-signed-request', artsController.processCreate,
