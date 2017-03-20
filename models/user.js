@@ -6,10 +6,8 @@ const mongoose = require('mongoose'),
     data = require('../data/users.json');
 
 const userSchema = new mongoose.Schema({
-    local: {
         email: String,
-        password: String,
-    }
+        password: String
 });
 
 userSchema.methods.generateHash = function (password) {
@@ -17,7 +15,7 @@ userSchema.methods.generateHash = function (password) {
 };
 
 userSchema.methods.validPassword = function (password) {
-    return bcrypt.compareSync(password, this.local.password);
+    return bcrypt.compareSync(password, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema);

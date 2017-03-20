@@ -15,7 +15,7 @@ module.exports = router;
  * Checks for user on every call and ensures placement in template
  */
 router.use(function (req, res, next) {
-    if (req.user) res.locals.user = req.user.local;
+    if (req.user) res.locals.user = req.user;
     next();
 });
 
@@ -35,7 +35,7 @@ router.post('/login',
     passport.authenticate('local-login', {failureFlash: true, failureRedirect: '/login'}),
     userController.login);
 
-router.post('/logout', userController.logout);
+router.get('/signout', userController.signout);
 
 router.get('/profile', userController.showProfile);
 
