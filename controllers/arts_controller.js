@@ -28,7 +28,7 @@ function showArts(req, res) {
         arts.forEach(function (art) {
             art.url = `https://s3.amazonaws.com/${process.env.BUCKET_NAME}/${art.s3Key}`
         })
-        res.render('arts', {arts: arts});
+        res.render('my_arts', {arts: arts});
     });
 }
 

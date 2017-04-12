@@ -6,6 +6,7 @@ const express = require('express'),
     appController = require('./controllers/app_controller.js'),
     artsController = require('./controllers/arts_controller.js'),
     userController = require('./controllers/user_controller'),
+    swipeController = require('./controllers/swipe_controller')
     passport = require('passport');
 
 module.exports = router;
@@ -38,6 +39,8 @@ router.post('/login',
 router.get('/signout', userController.signout);
 
 router.get('/profile', userController.showProfile);
+
+router.get('/swiper', swipeController.showSwiper);
 
 router.get('/arts', artsController.showArts);
 
