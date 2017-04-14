@@ -1,7 +1,12 @@
-.art-card {
+.art-card-img {
     max-width: 180px;
     max-height: 318px;
     display: block;
     width: auto;
     height: auto;
+    margin: auto;
+}
+
+.art-card {
+    padding-top: 2em;
 }
